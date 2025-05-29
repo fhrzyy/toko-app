@@ -26,7 +26,7 @@
         <!-- Brand Logo -->
         <div class="text-white flex items-center space-x-2 px-4 mb-10">
             <i class="fas fa-store text-2xl"></i>
-            <span class="text-2xl font-extrabold">Manajemen Toko</span>
+            <span class="text-2xl font-extrabold">Rozi Store</span>
         </div>
         
         <!-- Nav Items -->
@@ -94,7 +94,7 @@
             <button onclick="toggleSidebar()" class="text-white focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
-            <span class="text-xl font-bold">Toko App</span>
+            <span class="text-xl font-bold">Rozi Store</span>
             <div class="w-6"></div> <!-- Spacer for alignment -->
         </header>
         
