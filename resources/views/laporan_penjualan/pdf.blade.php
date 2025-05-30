@@ -66,11 +66,11 @@
                     <td>
                         <ul>
                             @foreach ($penjualan->details as $detail)
-                                <li>{{ $detail->barang->nama }} ({{ $detail->jumlah }} x Rp {{ number_format($detail->barang->harga, 2, ',', '.') }}) = Rp {{ number_format($detail->total_harga, 2, ',', '.') }}</li>
+                                <li>{{ $detail->barang->nama }} ({{ $detail->jumlah }} x Rp {{ number_format($detail->barang->harga, 3, ',', '.') }}) = Rp {{ number_format($detail->total_harga, 3, ',', '.') }}</li>
                             @endforeach
                         </ul>
                     </td>
-                    <td>Rp {{ number_format($penjualan->details->sum('total_harga'), 2, ',', '.') }}</td>
+                    <td>Rp {{ number_format($penjualan->details->sum('total_harga'), 3, ',', '.') }}</td>
                 </tr>
             @empty
                 <tr>
@@ -82,7 +82,7 @@
             <tfoot>
                 <tr>
                     <td colspan="3" style="text-align: right; font-weight: bold;">Grand Total:</td>
-                    <td style="font-weight: bold;">Rp {{ number_format($penjualans->sum(fn($penjualan) => $penjualan->details->sum('total_harga')), 2, ',', '.') }}</td>
+                    <td style="font-weight: bold;">Rp {{ number_format($penjualans->sum(fn($penjualan) => $penjualan->details->sum('total_harga')), 3, ',', '.') }}</td>
                 </tr>
             </tfoot>
         @endif
