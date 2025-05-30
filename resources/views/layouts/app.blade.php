@@ -26,12 +26,20 @@
         <!-- Brand Logo -->
         <div class="text-white flex items-center space-x-2 px-4 mb-10">
             <i class="fas fa-store text-2xl"></i>
-            <span class="text-2xl font-extrabold">Rozi Store</span>
+            <span class="text-2xl font-extrabold">Toko Rozi</span>
         </div>
         
         <!-- Nav Items -->
         <div class="space-y-2">
             @auth
+                <a href="{{ url('/dashboard') }}" class="sidebar-item flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
+                    <i class="fas fa-tachometer-alt w-6 text-center"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <!-- Pembatas untuk Dashboard -->
+                <div class="border-t border-blue-500 my-4"></div>
+
                 <a href="{{ url('/barang') }}" class="sidebar-item flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
                     <i class="fas fa-box-open w-6 text-center"></i>
                     <span>Barang</span>
@@ -49,7 +57,7 @@
                     <span>Pembeli</span>
                 </a>
 
-                <!-- Pembatas -->
+                <!-- Pembatas untuk Transaksi -->
                 <div class="border-t border-blue-500 my-4"></div>
 
                 <a href="{{ url('pembelian') }}" class="sidebar-item flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
@@ -59,6 +67,14 @@
                 <a href="{{ url('penjualan') }}" class="sidebar-item flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
                     <i class="fas fa-cash-register w-6 text-center"></i>
                     <span>Penjualan</span>
+                </a>
+
+                <!-- Pembatas untuk Laporan -->
+                <div class="border-t border-blue-500 my-4"></div>
+
+                <a href="{{ url('laporan-penjualan') }}" class="sidebar-item flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
+                    <i class="fas fa-file-alt w-6 text-center"></i>
+                    <span>Laporan Penjualan</span>
                 </a>
 
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
@@ -94,7 +110,7 @@
             <button onclick="toggleSidebar()" class="text-white focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
-            <span class="text-xl font-bold">Rozi Store</span>
+            <span class="text-xl font-bold">Toko Rozi</span>
             <div class="w-6"></div> <!-- Spacer for alignment -->
         </header>
         

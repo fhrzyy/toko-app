@@ -9,6 +9,8 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\LaporanPenjualanController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,12 +20,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('auth');
 Route::resource('barang', BarangController::class)->middleware('auth');
 Route::resource('pembelian', PembelianController::class)->middleware('auth');
 Route::resource('kategori', KategoriController::class)->middleware('auth');
 Route::resource('supplier', SupplierController::class)->middleware('auth');
 Route::resource('pembeli', PembeliController::class)->middleware('auth');
 Route::resource('penjualan', PenjualanController::class)->middleware('auth');
+Route::get('laporan-penjualan', [LaporanPenjualanController::class, 'index'])->name('laporan-penjualan.index')->middleware('auth');
+Route::get('laporan-penjualan/export-pdf', [LaporanPenjualanController::class, 'exportPdf'])->name('laporan-penjualan.export-pdf')->middleware('auth');
 
 // pdf
 Route::get('/barang/export-pdf', [BarangController::class, 'exportPdf'])->name('barang.exportPdf')->middleware('auth');

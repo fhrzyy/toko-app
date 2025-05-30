@@ -16,6 +16,7 @@
             <tr>
                 <th class="border px-4 py-2">Pembeli</th>
                 <th class="border px-4 py-2">Tanggal Penjualan</th>
+                <th class="border px-4 py-2">Total Harga</th>
                 <th class="border px-4 py-2">Aksi</th>
             </tr>
         </thead>
@@ -24,7 +25,9 @@
                 <tr>
                     <td class="border px-4 py-2">{{ $penjualan->pembeli->nama }}</td>
                     <td class="border px-4 py-2">{{ $penjualan->tanggal_penjualan }}</td>
+                    <td class="border px-4 py-2">Rp {{ number_format($penjualan->details->sum('total_harga'), 3, ',', '.') }}</td>
                     <td class="border px-4 py-2">
+                        <a href="{{ route('penjualan.show', $penjualan) }}" class="bg-green-500 text-white px-2 py-1 rounded mr-2 hover:bg-green-600">Detail</a>
                         <a href="{{ route('penjualan.edit', $penjualan) }}" class="bg-yellow-500 text-white px-2 py-1 rounded mr-2 hover:bg-yellow-600">Edit</a>
                         <form action="{{ route('penjualan.destroy', $penjualan) }}" method="POST" class="inline">
                             @csrf
@@ -35,7 +38,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="border px-4 py-2 text-center">Tidak ada data.</td>
+                    <td colspan="4" class="border px-4 py-2 text-center">Tidak ada data.</td>
                 </tr>
             @endforelse
         </tbody>

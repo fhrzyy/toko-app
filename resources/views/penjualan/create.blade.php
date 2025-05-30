@@ -35,9 +35,67 @@
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
+
+        <!-- Daftar Barang -->
+        <div>
+            <h2 class="text-lg font-semibold mb-2">Daftar Barang</h2>
+            <div id="items-container" class="space-y-4">
+                <div class="item flex space-x-4 items-end">
+                    <div class="flex-1">
+                        <label for="items[0][barang_id]" class="block text-sm font-medium text-gray-700">Barang</label>
+                        <select name="items[0][barang_id]" required class="border rounded w-full p-2">
+                            <option value="">Pilih Barang</option>
+                            @foreach ($barangs as $barang)
+                                <option value="{{ $barang->id }}" data-harga="{{ $barang->harga }}">{{ $barang->nama }} (Stok: {{ $barang->stok }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="w-32">
+                        <label for="items[0][jumlah]" class="block text-sm font-medium text-gray-700">Jumlah</label>
+                        <input type="number" name="items[0][jumlah]" required class="border rounded w-full p-2" min="1">
+                    </div>
+                    <button type="button" class="remove-item bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Hapus</button>
+                </div>
+            </div>
+            <button type="button" id="add-item" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Tambah Barang</button>
+        </div>
+
         <div>
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Simpan</button>
         </div>
     </form>
 </div>
+
+<script>
+    let itemIndex = 1;
+    document.getElementById('add-item').addEventListener('click', function () {
+        const container = document.getElementById('items-container');
+        const newItem = document.createElement('div');
+        newItem.classList.add('item', 'flex', 'space-x-4', 'items-end');
+        newItem.innerHTML = `
+            <div class="flex-1">
+                <label for="items[${itemIndex}][barang_id]" class="block text-sm font-medium text-gray-700">Barang</label>
+                <select name="items[${itemIndex}][barang_id]" required class="border rounded w-full p-2">
+                    <option value="">Pilih Barang</option>
+                    @foreach ($barangs as $barang)
+                        <option value="{{ $barang->id }}" data-harga="{{ $barang->harga }}">{{ $barang->nama }} (Stok: {{ $barang->stok }})</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="w-32">
+                <label for="items[${itemIndex}][jumlah]" class="block text-sm font-medium text-gray-700">Jumlah</label>
+                <input type="number" name="items[${itemIndex}][jumlah]" required class="border rounded w-full p-2" min="1">
+            </div>
+            <button type="button" class="remove-item bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Hapus</button>
+        `;
+        container.appendChild(newItem);
+        itemIndex++;
+    });
+
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-item')) {
+            e.target.parentElement.remove();
+        }
+    });
+</script>
 @endsection
