@@ -7,6 +7,6 @@
 </head>
 <body>
     <h1>Mohon Maaf, Anda tidak bisa melakukan register</h1>
-    <p>Akun admin/pengelola disediakan oleh developer, silahkan hubungi developer</p>
+    <p>Akun disediakan oleh developer, silahkan hubungi developer</p>
 </body>
 </html>
