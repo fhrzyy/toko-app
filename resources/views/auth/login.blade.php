@@ -27,8 +27,8 @@
         <!-- Header Card -->
         <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-center text-white">
             <i class="fas fa-store text-4xl mb-3"></i>
-            <h1 class="text-3xl font-bold">Welcome Back</h1>
-            <p class="opacity-90">Sign in to your account</p>
+            <h1 class="text-3xl font-bold">Selamat Datang</h1>
+            <p class="opacity-90">silahkan login terlebih dahulu</p>
         </div>
         
         <!-- Form Container -->
@@ -53,7 +53,7 @@
 
                 <!-- Username Field -->
                 <div class="input-group">
-                    <label for="username" class="block text-sm font-medium text-gray-600 mb-1">Username</label>
+                    <label for="username" class="block text-sm font-medium text-gray-600 mb-1">Email</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="fas fa-user text-gray-400"></i>
