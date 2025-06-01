@@ -104,7 +104,7 @@
                 <!-- Submit Button -->
                 <div>
                     <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300 flex items-center justify-center">
-                        <i class="fas fa-sign-in-alt mr-2"></i> Sign In
+                        <i class="fas fa-sign-in-alt mr-2"></i> Login
                     </button>
                 </div>
             </form>

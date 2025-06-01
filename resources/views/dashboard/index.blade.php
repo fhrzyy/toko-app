@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto p-6 bg-gray-50 min-h-screen">
-    <h1 class="text-3xl font-bold mb-8 text-gray-800 border-b pb-4">Dashboard Overview</h1>
+    <h1 class="text-3xl font-bold mb-8 text-gray-800 border-b pb-4">Selamat Datang</h1>
 
     <!-- Card Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
