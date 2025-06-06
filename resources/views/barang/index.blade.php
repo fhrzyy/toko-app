@@ -10,6 +10,17 @@
         </div>
     </div>
 
+    <!-- Form Pencarian -->
+    <div class="mb-6">
+        <form action="{{ route('barang.index') }}" method="GET" class="flex flex-col sm:flex-row gap-4">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari barang berdasarkan nama atau kategori..." class="w-full sm:w-96 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">Cari</button>
+            @if (request('search'))
+                <a href="{{ route('barang.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-600 transition duration-200">Reset</a>
+            @endif
+        </form>
+    </div>
+
     @if (session('success'))
         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg mb-6" role="alert">
             <p class="font-semibold">{{ session('success') }}</p>
@@ -20,6 +31,7 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Gambar</th>
                     <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nama</th>
                     <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Kategori</th>
                     <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Stok</th>
@@ -30,6 +42,13 @@
             <tbody class="divide-y divide-gray-200">
                 @forelse ($barangs as $barang)
                     <tr class="hover:bg-gray-50 transition duration-150">
+                        <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                            @if ($barang->gambar)
+                                <img src="{{ asset('storage/barang/' . $barang->gambar) }}" alt="{{ $barang->nama }}" class="w-16 h-16 object-cover rounded-lg">
+                            @else
+                                <span class="text-gray-500">Tidak ada gambar</span>
+                            @endif
+                        </td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $barang->nama }}</td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $barang->kategori->nama }}</td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $barang->stok }}</td>
@@ -45,7 +64,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-4 py-4 text-center text-sm text-gray-500">Tidak ada data.</td>
+                        <td colspan="6" class="px-4 py-4 text-center text-sm text-gray-500">Tidak ada data.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -53,7 +72,7 @@
     </div>
 
     <div class="mt-6">
-        {{ $barangs->links('pagination::tailwind') }}
+        {{ $barangs->appends(request()->query())->links('pagination::tailwind') }}
     </div>
 </div>
 @endsection

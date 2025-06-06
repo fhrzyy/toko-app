@@ -79,10 +79,9 @@
     <!-- Sidebar -->
     <nav class="sidebar bg-gradient-to-b from-blue-600 to-blue-800 text-white w-64 space-y-6 py-7 px-2 fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-200 ease-in-out shadow-xl">
         <!-- Brand Logo -->
-        <div class="text-white flex items-center space-x-2 px-4 mb-10">
-            <i class="fas fa-store text-2xl"></i>
-            <span class="text-2xl font-extrabold">Toko Rozi</span>
-        </div>
+        <div class="text-white flex items-center justify-center space-x-2 px-4 mb-10">
+    <span class="text-2xl font-extrabold">Toko Rozi</span>
+</div>
 
         <!-- Nav Items -->
         <div class="space-y-2">

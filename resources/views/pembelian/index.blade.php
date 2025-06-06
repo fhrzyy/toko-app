@@ -7,6 +7,18 @@
         <a href="{{ route('pembelian.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">Tambah Pembelian</a>
     </div>
 
+    <!-- Form Filter Tanggal -->
+    <div class="mb-6">
+        <form action="{{ route('pembelian.index') }}" method="GET" class="flex flex-col sm:flex-row gap-4">
+            <input type="date" name="start_date" value="{{ request('start_date') }}" class="w-full sm:w-48 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <input type="date" name="end_date" value="{{ request('end_date') }}" class="w-full sm:w-48 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">Filter</button>
+            @if (request('start_date') || request('end_date'))
+                <a href="{{ route('pembelian.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-600 transition duration-200">Reset</a>
+            @endif
+        </form>
+    </div>
+
     @if (session('success'))
         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg mb-6" role="alert">
             <p class="font-semibold">{{ session('success') }}</p>
@@ -49,6 +61,10 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+
+    <div class="mt-6">
+        {{ $pembelians->appends(request()->query())->links('pagination::tailwind') }}
     </div>
 </div>
 @endsection

@@ -9,9 +9,19 @@ use Illuminate\Http\Request;
 
 class PembelianController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pembelians = Pembelian::with('barang', 'supplier')->get();
+        $query = Pembelian::with('barang', 'supplier');
+
+        // Filter berdasarkan rentang tanggal
+        if ($start_date = $request->query('start_date')) {
+            $query->where('tanggal', '>=', $start_date);
+        }
+        if ($end_date = $request->query('end_date')) {
+            $query->where('tanggal', '<=', $end_date);
+        }
+
+        $pembelians = $query->paginate(10);
         return view('pembelian.index', compact('pembelians'));
     }
 

@@ -7,9 +7,21 @@ use Illuminate\Http\Request;
 
 class PembeliController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pembelis = Pembeli::all();
+        $query = Pembeli::query();
+
+        // Filter berdasarkan pencarian
+        if ($search = $request->query('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'LIKE', "%{$search}%")
+                  ->orWhere('jenis_kelamin', 'LIKE', "%{$search}%")
+                  ->orWhere('alamat', 'LIKE', "%{$search}%")
+                  ->orWhere('no_hp', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $pembelis = $query->paginate(10);
         return view('pembeli.index', compact('pembelis'));
     }
 

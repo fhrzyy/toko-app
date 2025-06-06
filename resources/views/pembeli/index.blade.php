@@ -7,6 +7,17 @@
         <a href="{{ route('pembeli.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">Tambah Pembeli</a>
     </div>
 
+    <!-- Form Pencarian -->
+    <div class="mb-6">
+        <form action="{{ route('pembeli.index') }}" method="GET" class="flex flex-col sm:flex-row gap-4">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari pembeli berdasarkan nama, alamat, atau no HP..." class="w-full sm:w-96 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">Cari</button>
+            @if (request('search'))
+                <a href="{{ route('pembeli.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-600 transition duration-200">Reset</a>
+            @endif
+        </form>
+    </div>
+
     @if (session('success'))
         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg mb-6" role="alert">
             <p class="font-semibold">{{ session('success') }}</p>
@@ -47,6 +58,10 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+
+    <div class="mt-6">
+        {{ $pembelis->appends(request()->query())->links('pagination::tailwind') }}
     </div>
 </div>
 @endsection

@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::all();
+        $query = Supplier::query();
+
+        // Filter berdasarkan pencarian
+        if ($search = $request->query('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'LIKE', "%{$search}%")
+                  ->orWhere('alamat', 'LIKE', "%{$search}%")
+                  ->orWhere('kode_pos', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $suppliers = $query->paginate(10);
         return view('supplier.index', compact('suppliers'));
     }
 
