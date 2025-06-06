@@ -9,6 +9,13 @@
     <!-- Font Awesome via CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Custom Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
         /* Sidebar Styling */
         .sidebar {
             transition: all 0.3s ease-in-out;
@@ -16,37 +23,42 @@
             z-index: 50;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+            scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+            background:rgb(255, 255, 255);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
         }
 
         /* Custom Scrollbar for Webkit browsers */
         .sidebar::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
         .sidebar::-webkit-scrollbar-track {
             background: transparent;
         }
         .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 2px;
         }
         .sidebar::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.25);
         }
 
         /* Sidebar Item Styling */
         .sidebar-item {
             transition: all 0.2s ease-in-out;
             position: relative;
-            border-radius: 0.5rem;
+            border-radius: 0.375rem;
             font-size: 0.95rem;
+            font-weight: 400;
+            margin-bottom: 2px;
+            letter-spacing: 0.2px;
+            color: #4b5563;
         }
 
         /* Hover Effect for Sidebar Items */
         .sidebar-item:hover {
-            transform: translateX(5px);
-            background-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transform: translateX(4px);
+            background-color: rgba(0, 0, 0, 0.04);
         }
 
         /* Styling untuk menu aktif */
@@ -69,102 +81,150 @@
             color: white !important;
         }
 
-        /* Override Tailwind Hover */
-        .sidebar-item.active:hover:bg-blue-700 {
-            background-color: rgb(0, 78, 245) !important;
+        /* Logo styling */
+        .logo-text {
+            background: linear-gradient(to right,rgb(62, 107, 206),rgb(62, 107, 206));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        /* Divider styling */
+        .sidebar-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+            margin: 1rem 0;
+        }
+
+        /* Main content area */
+        .main-content {
+            background-color: #f8f9fa;
+        }
+        
+        /* Logout button */
+        .logout-button {
+            color: #ff6b6b;
+        }
+        
+        .logout-button:hover {
+            color: #ff5252;
+            background-color: rgba(255, 107, 107, 0.1) !important;
+        }
+        
+        /* Category headings */
+        .category-heading {
+            color: #9ca3af;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Icon styling */
+        .sidebar-icon {
+            color: #6b7280;
         }
     </style>
 </head>
-<body class="flex h-screen bg-gray-100">
+<body class="flex h-screen bg-gray-50">
     <!-- Sidebar -->
-    <nav class="sidebar bg-gradient-to-b from-blue-600 to-blue-800 text-white w-64 space-y-6 py-7 px-2 fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-200 ease-in-out shadow-xl">
+    <nav class="sidebar w-64 space-y-6 py-7 px-2 fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-200 ease-in-out">
         <!-- Brand Logo -->
-        <div class="text-white flex items-center justify-center space-x-2 px-4 mb-10">
-    <span class="text-2xl font-extrabold">Toko Rozi</span>
-</div>
+        <div class="flex items-center justify-center space-x-2 px-4 mb-8">
+            <span class="text-2xl logo-text">Toko Rozi</span>
+        </div>
 
         <!-- Nav Items -->
-        <div class="space-y-2">
+        <div class="space-y-1 px-3">
             @auth
-                <a href="{{ url('/dashboard') }}" class="sidebar-item {{ request()->is('dashboard') || request()->is('/') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-tachometer-alt w-6 text-center"></i>
+                <a href="{{ url('/dashboard') }}" class="sidebar-item {{ request()->is('dashboard') || request()->is('/') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-tachometer-alt w-5 text-center sidebar-icon"></i>
                     <span>Dashboard</span>
                 </a>
 
                 <!-- Pembatas untuk Dashboard -->
-                <div class="border-t border-blue-500 my-4"></div>
+                <div class="sidebar-divider my-3"></div>
 
-                <a href="{{ url('/barang') }}" class="sidebar-item {{ request()->is('barang') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-box-open w-6 text-center"></i>
+                <p class="category-heading ml-4 mb-2">Manajemen Data</p>
+                
+                <a href="{{ url('/barang') }}" class="sidebar-item {{ request()->is('barang') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-box-open w-5 text-center sidebar-icon"></i>
                     <span>Barang</span>
                 </a>
-                <a href="{{ url('/kategori') }}" class="sidebar-item {{ request()->is('kategori') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-tags w-6 text-center"></i>
+                <a href="{{ url('/kategori') }}" class="sidebar-item {{ request()->is('kategori') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-tags w-5 text-center sidebar-icon"></i>
                     <span>Kategori Barang</span>
                 </a>
-                <a href="{{ url('/supplier') }}" class="sidebar-item {{ request()->is('supplier') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-truck w-6 text-center"></i>
+                <a href="{{ url('/supplier') }}" class="sidebar-item {{ request()->is('supplier') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-truck w-5 text-center sidebar-icon"></i>
                     <span>Supplier</span>
                 </a>
-                <a href="{{ url('/pembeli') }}" class="sidebar-item {{ request()->is('pembeli') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-users w-presso w-6 text-center"></i>
+                <a href="{{ url('/pembeli') }}" class="sidebar-item {{ request()->is('pembeli') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-users w-5 text-center sidebar-icon"></i>
                     <span>Pembeli</span>
                 </a>
 
                 <!-- Pembatas untuk Transaksi -->
-                <div class="border-t border-blue-500 my-4"></div>
+                <div class="sidebar-divider my-3"></div>
 
-                <a href="{{ url('/pembelian') }}" class="sidebar-item {{ request()->is('pembelian') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-shopping-cart w-6 text-center"></i>
+                <p class="category-heading ml-4 mb-2">Transaksi</p>
+                
+                <a href="{{ url('/pembelian') }}" class="sidebar-item {{ request()->is('pembelian') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-shopping-cart w-5 text-center sidebar-icon"></i>
                     <span>Pembelian</span>
                 </a>
-                <a href="{{ url('/penjualan') }}" class="sidebar-item {{ request()->is('penjualan') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-cash-register w-6 text-center"></i>
+                <a href="{{ url('/penjualan') }}" class="sidebar-item {{ request()->is('penjualan') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-cash-register w-5 text-center sidebar-icon"></i>
                     <span>Penjualan</span>
                 </a>
 
                 <!-- Pembatas untuk Laporan -->
-                <div class="border-t border-blue-500 my-4"></div>
+                <div class="sidebar-divider my-3"></div>
 
-                <a href="{{ url('/laporan-penjualan') }}" class="sidebar-item {{ request()->is('laporan-penjualan') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-file-alt w-6 text-center"></i>
+                <p class="category-heading ml-4 mb-2">Laporan</p>
+                
+                <a href="{{ url('/laporan-penjualan') }}" class="sidebar-item {{ request()->is('laporan-penjualan') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-file-alt w-5 text-center sidebar-icon"></i>
                     <span>Laporan Penjualan</span>
                 </a>
 
+                <div class="sidebar-divider my-3"></div>
+
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                   class="sidebar-item {{ request()->is('logout') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50 text-red-200 hover:text-red-100">
-                    <i class="fas fa-sign-out-alt w-6 text-center"></i>
+                   class="logout-button sidebar-item {{ request()->is('logout') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-sign-out-alt w-5 text-center"></i>
                     <span>Logout</span>
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                     @csrf
                 </form>
             @else
-                <a href="{{ route('login') }}" class="sidebar-item {{ request()->is('login') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-sign-in-alt w-6 text-center"></i>
+                <a href="{{ route('login') }}" class="sidebar-item {{ request()->is('login') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-sign-in-alt w-5 text-center sidebar-icon"></i>
                     <span>Login</span>
                 </a>
-                <a href="{{ route('register') }}" class="sidebar-item {{ request()->is('register') ? 'active' : '' }} flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-blue-700 hover:bg-opacity-50">
-                    <i class="fas fa-user-plus w-6 text-center"></i>
+                <a href="{{ route('register') }}" class="sidebar-item {{ request()->is('register') ? 'active' : '' }} flex items-center space-x-3 py-3 px-4 rounded-md">
+                    <i class="fas fa-user-plus w-5 text-center sidebar-icon"></i>
                     <span>Register</span>
                 </a>
             @endauth
         </div>
 
         <!-- Mobile Toggle Button (hidden on desktop) -->
-        <button class="md:hidden absolute top-4 right-4 text-white" onclick="toggleSidebar()">
+        <button class="md:hidden absolute top-4 right-4 text-gray-400 hover:text-gray-600" onclick="toggleSidebar()">
             <i class="fas fa-times text-xl"></i>
         </button>
     </nav>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden md:ml-64">
+    <div class="flex-1 flex flex-col overflow-hidden md:ml-64 main-content">
         <!-- Mobile Header -->
-        <header class="md:hidden bg-blue-600 text-white p-4 flex justify-between items-center">
-            <button onclick="toggleSidebar()" class="text-white focus:outline-none">
+        <header class="md:hidden bg-white text-gray-800 p-4 flex justify-between items-center shadow-sm">
+            <button onclick="toggleSidebar()" class="text-gray-500 focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
-            <span class="text-xl font-bold">Toko Rozi</span>
+            <span class="text-xl font-bold logo-text">Toko Rozi</span>
             <div class="w-6"></div>
         </header>
 

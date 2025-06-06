@@ -152,7 +152,7 @@
 
     // Data kategori barang (contoh data)
     const categoryData = {
-        labels: ['Elektronik', 'Fashion', 'Makanan', 'Minuman', 'Kesehatan'],
+        labels: ['Elektronik', 'Bumbu Dapur', 'Makanan', 'Minuman', 'Bahan Kue', 'ATK'  ],
         datasets: [{
             label: 'Jumlah Barang per Kategori',
             backgroundColor: [
@@ -160,9 +160,10 @@
                 'rgba(16, 185, 129, 0.7)',
                 'rgba(245, 158, 11, 0.7)',
                 'rgba(239, 68, 68, 0.7)',
-                'rgba(139, 92, 246, 0.7)'
+                'rgba(0, 255, 234, 0.86)',
+                'rgba(208, 255, 0, 0.8)',
             ],
-            data: [30, 25, 15, 20, 10]
+            data: [30, 25, 15, 20, 10, 5]
         }]
     };
 
