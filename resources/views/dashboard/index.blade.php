@@ -150,23 +150,6 @@
         }]
     };
 
-    // Data kategori barang (contoh data)
-    const categoryData = {
-        labels: ['Elektronik', 'Bumbu Dapur', 'Makanan', 'Minuman', 'Bahan Kue', 'ATK'  ],
-        datasets: [{
-            label: 'Jumlah Barang per Kategori',
-            backgroundColor: [
-                'rgba(59, 130, 246, 0.7)',
-                'rgba(16, 185, 129, 0.7)',
-                'rgba(245, 158, 11, 0.7)',
-                'rgba(239, 68, 68, 0.7)',
-                'rgba(0, 255, 234, 0.86)',
-                'rgba(208, 255, 0, 0.8)',
-            ],
-            data: [30, 25, 15, 20, 10, 5]
-        }]
-    };
-
     // Inisialisasi grafik penjualan
     document.addEventListener('DOMContentLoaded', function() {
         const salesCtx = document.getElementById('salesChart').getContext('2d');
@@ -197,22 +180,30 @@
             }
         });
 
-        // Inisialisasi grafik kategori
+        // Inisialisasi grafik kategori dengan data dinamis dari API
         const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        const categoryChart = new Chart(categoryCtx, {
-            type: 'doughnut',
-            data: categoryData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right'
+        fetch('/api/category-data')
+            .then(response => response.json())
+            .then(data => {
+                const categoryChart = new Chart(categoryCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: data.labels,
+                        datasets: data.datasets
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            }
+                        },
+                        cutout: '60%'
                     }
-                },
-                cutout: '60%'
-            }
-        });
+                });
+            })
+            .catch(error => console.error('Error fetching category data:', error));
     });
 </script>
 @endsection

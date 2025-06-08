@@ -14,7 +14,6 @@ class BarangController extends Controller
     {
         $query = Barang::with('kategori');
 
-        // Filter berdasarkan pencarian
         if ($search = $request->query('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('nama', 'LIKE', "%{$search}%")
@@ -107,5 +106,38 @@ class BarangController extends Controller
         $barangs = Barang::with('kategori')->get();
         $pdf = PDF::loadView('barang.pdf', compact('barangs'));
         return $pdf->download('daftar-barang.pdf');
+    }
+
+    public function getCategoryData()
+    {
+        $categories = Kategori::withCount('barangs')->get();
+
+        $labels = $categories->pluck('nama')->toArray();
+        $data = $categories->pluck('barangs_count')->toArray();
+
+        $backgroundColors = [
+            'rgba(59, 130, 246, 0.7)',  // Biru
+            'rgba(16, 185, 129, 0.7)', // Hijau
+            'rgba(245, 158, 11, 0.7)', // Kuning
+            'rgba(239, 68, 68, 0.7)',  // Merah
+            'rgba(0, 255, 234, 0.86)', // Cyan
+            'rgba(208, 255, 0, 0.8)',  // Kuning Terang
+        ];
+
+        // Tambahkan warna lebih banyak jika jumlah kategori melebihi 6
+        while (count($backgroundColors) < count($labels)) {
+            $backgroundColors[] = 'rgba(' . rand(0, 255) . ', ' . rand(0, 255) . ', ' . rand(0, 255) . ', 0.7)';
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Jumlah Barang per Kategori',
+                    'backgroundColor' => $backgroundColors,
+                    'data' => $data,
+                ]
+            ]
+        ]);
     }
 }

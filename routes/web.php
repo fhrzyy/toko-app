@@ -21,6 +21,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('auth');
+Route::get('/api/category-data', [BarangController::class, 'getCategoryData']);
 Route::resource('barang', BarangController::class)->middleware('auth');
 Route::resource('pembelian', PembelianController::class)->middleware('auth');
 Route::resource('kategori', KategoriController::class)->middleware('auth');
