@@ -132,7 +132,7 @@
     <nav class="sidebar w-64 space-y-6 py-7 px-2 fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-200 ease-in-out">
         <!-- Brand Logo -->
         <div class="flex items-center justify-center space-x-2 px-4 mb-8">
-            <span class="text-2xl logo-text">Toko Rozi</span>
+            <span class="text-2xl logo-text">Smart Store</span>
         </div>
 
         <!-- Nav Items -->
@@ -224,7 +224,7 @@
             <button onclick="toggleSidebar()" class="text-gray-500 focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
-            <span class="text-xl font-bold logo-text">Toko Rozi</span>
+            <span class="text-xl font-bold logo-text">Smart Store</span>
             <div class="w-6"></div>
         </header>
 
