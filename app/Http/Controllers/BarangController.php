@@ -12,7 +12,7 @@ class BarangController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Barang::with('kategori');
+        $query = Barang::with('kategori')->latest(); // Mengurutkan berdasarkan created_at terbaru
 
         if ($search = $request->query('search')) {
             $query->where(function ($q) use ($search) {
