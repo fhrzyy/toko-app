@@ -56,17 +56,6 @@
             @enderror
         </div>
         <div>
-            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-            <select id="status" name="status" required class="border rounded w-full p-2 @error('status') border-red-500 @enderror">
-                <option value="">Pilih Status</option>
-                <option value="pending" {{ old('status', $pembelian->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="selesai" {{ old('status', $pembelian->status) == 'selesai' ? 'selected' : '' }}>Selesai</option>
-            </select>
-            @error('status')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-        <div>
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Update</button>
         </div>
     </form>

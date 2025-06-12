@@ -32,7 +32,7 @@
         </div>
         <div>
             <label for="kode_pos" class="block text-sm font-medium text-gray-700">Kode Pos</label>
-            <input id="kode_pos" type="text" name="kode_pos" value="{{ old('kode_pos') }}" required class="border rounded w-full p-2 @error('kode_pos') border-red-500 @enderror">
+            <input id="kode_pos" type="number" name="kode_pos" value="{{ old('kode_pos') }}" required class="border rounded w-full p-2 @error('kode_pos') border-red-500 @enderror">
             @error('kode_pos')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror

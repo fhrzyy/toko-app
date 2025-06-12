@@ -30,6 +30,7 @@ Route::resource('pembeli', PembeliController::class)->middleware('auth');
 Route::resource('penjualan', PenjualanController::class)->middleware('auth');
 Route::get('laporan-penjualan', [LaporanPenjualanController::class, 'index'])->name('laporan-penjualan.index')->middleware('auth');
 Route::get('laporan-penjualan/export-pdf', [LaporanPenjualanController::class, 'exportPdf'])->name('laporan-penjualan.export-pdf')->middleware('auth');
+Route::post('/pembelian/{pembelian}/update-status', [PembelianController::class, 'updateStatus'])->name('pembelian.updateStatus');
 
 // pdf
 Route::get('/barang/export-pdf', [BarangController::class, 'exportPdf'])->name('barang.exportPdf')->middleware('auth');

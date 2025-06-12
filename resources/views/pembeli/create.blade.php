@@ -43,7 +43,7 @@
         </div>
         <div>
             <label for="no_hp" class="block text-sm font-medium text-gray-700">No HP</label>
-            <input id="no_hp" type="text" name="no_hp" value="{{ old('no_hp') }}" required class="border rounded w-full p-2 @error('no_hp') border-red-500 @enderror">
+            <input id="no_hp" type="number" name="no_hp" value="{{ old('no_hp') }}" required class="border rounded w-full p-2 @error('no_hp') border-red-500 @enderror">
             @error('no_hp')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror

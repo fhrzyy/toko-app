@@ -52,6 +52,13 @@
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-lg shadow-md hover:bg-red-600 transition duration-200" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
                             </form>
+                            <form action="{{ route('pembelian.updateStatus', $pembelian) }}" method="POST" class="inline-block ml-2">
+                                @csrf
+                                <select name="status" onchange="this.form.submit()" class="border rounded p-1">
+                                    <option value="pending" {{ $pembelian->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="selesai" {{ $pembelian->status == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                                </select>
+                            </form>
                         </td>
                     </tr>
                 @empty

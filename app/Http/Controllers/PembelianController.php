@@ -13,7 +13,6 @@ class PembelianController extends Controller
     {
         $query = Pembelian::with('barang', 'supplier');
 
-        // Filter berdasarkan rentang tanggal
         if ($start_date = $request->query('start_date')) {
             $query->where('tanggal', '>=', $start_date);
         }
@@ -42,12 +41,15 @@ class PembelianController extends Controller
             'status' => 'required|in:pending,selesai',
         ]);
 
-        Pembelian::create($request->all());
+        $data = $request->all();
+        $pembelian = Pembelian::create($data);
 
-        // Update stok barang
-        $barang = Barang::find($request->barang_id);
-        $barang->stok += $request->jumlah;
-        $barang->save();
+        // Hanya tambah stok jika status adalah "selesai"
+        if ($pembelian->status === 'selesai') {
+            $barang = Barang::find($request->barang_id);
+            $barang->stok += $request->jumlah;
+            $barang->save();
+        }
 
         return redirect()->route('pembelian.index')->with('success', 'Pembelian berhasil ditambahkan.');
     }
@@ -74,31 +76,69 @@ class PembelianController extends Controller
             'status' => 'required|in:pending,selesai',
         ]);
 
-        // Kurangi stok barang lama
-        $barang = Barang::find($pembelian->barang_id);
-        $barang->stok -= $pembelian->jumlah;
-        $barang->save();
+        // Simpan status lama untuk perbandingan
+        $oldStatus = $pembelian->status;
+        $oldBarangId = $pembelian->barang_id;
+        $oldJumlah = $pembelian->jumlah;
 
         // Update pembelian
         $pembelian->update($request->all());
 
-        // Tambah stok barang baru
-        $barang = Barang::find($request->barang_id);
-        $barang->stok += $request->jumlah;
-        $barang->save();
+        // Kurangi stok barang lama jika status sebelumnya "selesai"
+        if ($oldStatus === 'selesai') {
+            $barang = Barang::find($oldBarangId);
+            $barang->stok -= $oldJumlah;
+            $barang->save();
+        }
+
+        // Tambah stok barang baru hanya jika status berubah menjadi "selesai"
+        if ($pembelian->status === 'selesai' && $pembelian->status !== $oldStatus) {
+            $barang = Barang::find($request->barang_id);
+            $barang->stok += $request->jumlah;
+            $barang->save();
+        }
 
         return redirect()->route('pembelian.index')->with('success', 'Pembelian berhasil diperbarui.');
     }
 
     public function destroy(Pembelian $pembelian)
     {
-        // Kurangi stok barang sebelum hapus
-        $barang = Barang::find($pembelian->barang_id);
-        $barang->stok -= $pembelian->jumlah;
-        $barang->save();
+        // Kurangi stok barang jika status adalah "selesai"
+        if ($pembelian->status === 'selesai') {
+            $barang = Barang::find($pembelian->barang_id);
+            $barang->stok -= $pembelian->jumlah;
+            $barang->save();
+        }
 
         $pembelian->delete();
 
         return redirect()->route('pembelian.index')->with('success', 'Pembelian berhasil dihapus.');
+    }
+
+    // Metode baru untuk mengubah status
+    public function updateStatus(Request $request, Pembelian $pembelian)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,selesai',
+        ]);
+
+        $oldStatus = $pembelian->status;
+        $pembelian->update(['status' => $request->status]);
+
+        // Kurangi stok jika status berubah dari "selesai" ke "pending"
+        if ($oldStatus === 'selesai' && $request->status === 'pending') {
+            $barang = Barang::find($pembelian->barang_id);
+            $barang->stok -= $pembelian->jumlah;
+            $barang->save();
+        }
+
+        // Tambah stok jika status berubah dari "pending" ke "selesai"
+        if ($oldStatus === 'pending' && $request->status === 'selesai') {
+            $barang = Barang::find($pembelian->barang_id);
+            $barang->stok += $pembelian->jumlah;
+            $barang->save();
+        }
+
+        return redirect()->route('pembelian.index')->with('success', 'Status pembelian berhasil diperbarui.');
     }
 }
