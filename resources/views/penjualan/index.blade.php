@@ -28,7 +28,7 @@
                     <tr class="hover:bg-gray-50 transition duration-150">
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $penjualan->pembeli->nama }}</td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $penjualan->tanggal_penjualan }}</td>
-                        <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">Rp {{ number_format($penjualan->details->sum('total_harga'), 3, ',', '.') }}</td>
+                        <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">Rp {{ number_format($penjualan->details->sum('total_harga'), 2, ',', '.') }}</td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                             <a href="{{ route('penjualan.show', $penjualan) }}" class="bg-green-500 text-white px-2 py-1 rounded-lg shadow-md hover:bg-green-600 transition duration-200">Detail</a>
                             <a href="{{ route('penjualan.edit', $penjualan) }}" class="bg-yellow-500 text-white px-2 py-1 rounded-lg shadow-md hover:bg-yellow-600 transition duration-200">Edit</a>

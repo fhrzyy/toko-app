@@ -86,7 +86,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Total Pendapatan</p>
-                    <p class="text-3xl font-bold text-gray-800 mt-1">Rp {{ number_format($totalPendapatan, 3, ',', '.') }}</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-1">Rp {{ number_format($totalPendapatan, 2, ',', '.') }}</p>
                 </div>
                 <div class="bg-indigo-100 p-3 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

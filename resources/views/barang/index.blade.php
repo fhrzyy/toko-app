@@ -52,7 +52,7 @@
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $barang->nama }}</td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $barang->kategori->nama }}</td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $barang->stok }}</td>
-                        <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($barang->harga, 3) }}</td>
+                        <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ number_format($barang->harga, 2) }}</td>
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                             <a href="{{ route('barang.edit', $barang) }}" class="bg-yellow-500 text-white px-2 py-1 rounded-lg shadow-md hover:bg-yellow-600 transition duration-200">Edit</a>
                             <form action="{{ route('barang.destroy', $barang) }}" method="POST" class="inline-block ml-2">
