@@ -13,7 +13,7 @@ use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
